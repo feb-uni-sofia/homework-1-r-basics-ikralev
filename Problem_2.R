@@ -39,27 +39,46 @@ xmax[xmax>mean(xmax)]
 DateNames <- c('03Mon18', '04Tue18', '05Wed18', '04Thu18', '05Fri18', '06Sat18', '07Sun18')
 DateNames
 
+## NOTE: this only creates a vector with the dates
+## it does not assign to the names attributes of the vectors xmin and xmax
+
 #g
 temperatures <- data.frame(xmin,xmax)
 temperatures
 
 #h
-temperatures <- within(temperatures, { xminFahrenheit <- xmin*9/5+32})
+
+## NOTE: readability
+
+## Unneccessary within
+
+temperatures1 <- within(temperatures, { 
+	xmaxFahrenheit <- xmax*9/5 + 32
+	xminFahrenheit <- xmin*9/5 + 32
+})
 temperatures
 
-temperatures2 <- within(temperatures, { xmaxFahrenheit <- xmax*9/5+32})
-temperatures2
-
 #i
+
 xminFahrenheit <- xmin*9/5+32
 xminFahrenheit
+
 xmaxFahrenheit <- xmax*9/5+32
 xmaxFahrenheit
 
 TemperaturesFahr <- data.frame(xminFahrenheit, xmaxFahrenheit)
 TemperaturesFahr
 
+## Better
+
+temperaturesFahr <- temperatures[, c('xminFahrenheit', 'xmaxFahrenheit)]
+
 #j
 
 Newdataframe <-data.frame(TemperaturesFahr[c(1,2,3,4,5),])
 Newdataframe
+
+## Better
+
+temperaturesFahr[1:5, ]
+temperaturesFahr[-(6:7), ]
